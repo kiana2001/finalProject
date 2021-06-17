@@ -12,6 +12,9 @@ public class Main {
             count++;
         }
 
+
+    public static void Maches() {
+    
         if (string.matches("\\s*end\\s+for\\s*")) {
             System.out.println(true);
             System.out.println(count);
@@ -76,6 +79,7 @@ public class Main {
             System.out.println(true);
             System.out.println(count);
         }
+
     }
 
     public static void main(String[] args) {
