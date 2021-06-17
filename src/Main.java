@@ -1,16 +1,89 @@
+import java.util.Scanner;
+
 public class Main {
+    public static int count=1;
+
+    public static void Maches(String string) {
+
+        if (string.matches("for\\s+\\d+\\s*")) {
+            System.out.println(true);
+            System.out.println(count);
+        } else {
+            count++;
+        }
+
 
     public static void Maches() {
-        String Str = "for 100 ";
-        String Str1 = "end   for";
-        String Str2 = "int x =10  ";
+    
+        if (string.matches("\\s*end\\s+for\\s*")) {
+            System.out.println(true);
+            System.out.println(count);
+        } else {
+            count++;
+        }
+        if (string.matches("\\s*(int|float)\\s*\\w+\\s*[=]\\s*\\d+\\s*")) {
+            System.out.println(true);
+            System.out.println(count);
+        } else {
+            count++;
+        }
+        if (string.matches("\\s*(int|float)\\s*\\w+\\s*")) {
+            System.out.println(true);
+            System.out.println(count);
+        } else {
+            count++;
+        }
+        if (string.matches("[%]+")) {
+            System.out.println(true);
+            System.out.println(count);
+        } else {
+            count++;
+        }
+        if (string.matches("[\\w|\\d]+\\s*[=]\\s*[\\w|\\d]+\\s*[+|-]\\s*[\\w|\\d]")) {
+            System.out.println(true);
+            System.out.println(count);
+        } else {
+            count++;
+        }
+        if (string.matches("[\\w|\\d]+\\s*[=]\\s*[\\w|\\d]+\\s*[\\-*\\/+]\\s*[\\w|\\d]")) {
+            System.out.println(true);
+            System.out.println(count);
+        } else {
+            count++;
+        }
+        if (string.matches("print\\s*[\\w+|\\d]+\\s*")) {
+            System.out.println(true);
+            System.out.println(count);
+        } else {
+            count++;
+        }
+        if (string.matches("\\w+\\s*[=]\\s*[\\w|\\d]+\\s*[\\-*\\/+]\\s*[\\w|\\d]+")) {
+            System.out.println(true);
+            System.out.println(count);
+        } else {
+            count++;
+        }
+        if (string.matches("\\s*\\w+\\s*[=]\\s*[\\w|\\d]+\\s*")) {
+            System.out.println(true);
+            System.out.println(count);
+        } else {
+            count++;
+        }
+        if (string.matches("\\w+\\s*[=]\\s*[\\-*\\/+]")) {
+            System.out.println(true);
+            System.out.println(count);
+        } else {
+            count++;
+        }
+        if (string.matches("\\w+\\s*[=]\\s*[\\-*\\/+]")) {
+            System.out.println(true);
+            System.out.println(count);
+        }
 
-        System.out.println(Str.matches("for\\s+\\d+\\s+"));
-        System.out.println(Str1.matches("\\s*end\\s+for\\s*"));
-        System.out.println(Str2.matches("\\s*(int|float)\\s*\\w+\\s*[=]\\s*\\d+\\s*"));
     }
 
     public static void main(String[] args) {
-        Maches();
+        Scanner scanner = new Scanner(System.in);
+        Maches(scanner.nextLine());
     }
 }
