@@ -1,10 +1,7 @@
-import javax.lang.model.element.ElementKind;
 import java.util.Scanner;
 
+@SuppressWarnings("ALL")
 public class Main {
-    public static int count = 1;
-
-
     public static Enum Maches(String string) {
         if (string.matches("\\s*for\\s*\\d+\\s*")) return Parts.FOR_HEAD;
         if (string.matches("\\s*end\\s+for\\s*")) return Parts.END_FOR;
@@ -26,6 +23,11 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        String string = scanner.nextLine();
         System.out.println(Maches(scanner.nextLine()));
+        switch (string){
+            case "Parts.DEFINE_VARIABLE_WITH_AMOUNT":// for 100
+                String replacestring = string.replaceAll("\\s*(int|float)\\s*\\w+\\s*[=]\\s*\\d+\\s*","\\s*(int|float)\\s*\\w+\\s*[=]\\s*\\d+\\s*;")
+        }
     }
 }
