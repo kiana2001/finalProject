@@ -24,10 +24,28 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         String string = scanner.nextLine();
+        String s2;
         System.out.println(Maches(scanner.nextLine()));
-        switch (string){
-            case "Parts.DEFINE_VARIABLE_WITH_AMOUNT":// for 100
-                String replacestring = string.replaceAll("\\s*(int|float)\\s*\\w+\\s*[=]\\s*\\d+\\s*","\\s*(int|float)\\s*\\w+\\s*[=]\\s*\\d+\\s*;")
+        switch (string) {
+            case "DEFINE_VARIABLE_WITH_AMOUNT":// for 100
+                String replacestring4 = string.replaceAll("s*(int|float)(\\s*)(\\w+)\\s*([=])\\s*(\\d+)\\s*","$1$2$3$4$5;");
+                break;
+            case "DEFINE_VARIABLE_WITHOUT_AMOUNT":
+                String replacestring3 = string.replaceAll("\\s*(int|float)(\\s*)(\\w+)\\s*","$1$2$3=0;");
+              break;
+            case "MATH_OPERATION":
+                String replacestring2 = string.replaceAll("[\\w|\\d]+\\s*[=]\\s*[\\w|\\d]+\\s*[\\-*\\/+]\\s*[\\w|\\d]","$1$2$3$4$5;");
+            case "PRINT "://print x >
+                String replacestring = string.replaceAll("print\\s*[\\w+|\\d]+\\s*","System.out.$1ln.$2;");
+                break;
+            case "ASSIGNEMNT":
+                String replacestring5 = string.replaceAll("(\\w+)\\s*([=])\\s*([\\w|\\d]+)\\s*([\\-*\\/+]\\s*[\\w|\\d]*)","$1$2$3$4;");
+                break;
+            case "FOR_HEAD":
+                String replacestring6 = string.replaceAll("\\s*(for)\\s*(\\d+)\\s*","$1(int i;i<=100;i++){");
+                break;
+            case "END_FOR":
+                String replacestring7 = string.replaceAll("\\s*(end)(\\s+)(for)\\s*","};");
         }
     }
 }
