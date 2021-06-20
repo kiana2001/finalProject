@@ -24,28 +24,35 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         String string = scanner.nextLine();
-        String s2;
         System.out.println(Maches(scanner.nextLine()));
         switch (string) {
             case "DEFINE_VARIABLE_WITH_AMOUNT":// for 100
                 String replacestring4 = string.replaceAll("s*(int|float)(\\s*)(\\w+)\\s*([=])\\s*(\\d+)\\s*","$1$2$3$4$5;");
+                System.out.println(replacestring4);
                 break;
             case "DEFINE_VARIABLE_WITHOUT_AMOUNT":
                 String replacestring3 = string.replaceAll("\\s*(int|float)(\\s*)(\\w+)\\s*","$1$2$3=0;");
+                System.out.println(replacestring3);
               break;
             case "MATH_OPERATION":
                 String replacestring2 = string.replaceAll("[\\w|\\d]+\\s*[=]\\s*[\\w|\\d]+\\s*[\\-*\\/+]\\s*[\\w|\\d]","$1$2$3$4$5;");
+                System.out.println(replacestring2);
             case "PRINT "://print x >
                 String replacestring = string.replaceAll("print\\s*[\\w+|\\d]+\\s*","System.out.$1ln.$2;");
+                System.out.println(replacestring);
                 break;
             case "ASSIGNEMNT":
                 String replacestring5 = string.replaceAll("(\\w+)\\s*([=])\\s*([\\w|\\d]+)\\s*([\\-*\\/+]\\s*[\\w|\\d]*)","$1$2$3$4;");
+                System.out.println(replacestring5);
                 break;
             case "FOR_HEAD":
                 String replacestring6 = string.replaceAll("\\s*(for)\\s*(\\d+)\\s*","$1(int i;i<=100;i++){");
+                System.out.println(replacestring6);
                 break;
             case "END_FOR":
                 String replacestring7 = string.replaceAll("\\s*(end)(\\s+)(for)\\s*","};");
+                System.out.println(replacestring7);
+                break;
         }
     }
 }
