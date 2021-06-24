@@ -1,3 +1,5 @@
+package core;
+
 public class Pattern {
     public static String FOR_HEAD="\\s*for\\s*\\d+\\s*";
     public static String FOR_END="\\s*end\\s+for\\s*";

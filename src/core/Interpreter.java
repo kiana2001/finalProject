@@ -1,3 +1,5 @@
+package core;
+
 public class Interpreter {
 
     public static Parts getType(String string) {

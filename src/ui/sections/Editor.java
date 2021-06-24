@@ -15,10 +15,13 @@ import org.reactfx.collection.ListModification;
 
 import java.util.Collection;
 
+import java.util.Collections;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import static core.Interpreter.*;
 
 public class Editor extends CodeArea {
 
@@ -55,29 +58,30 @@ public class Editor extends CodeArea {
 
     private StyleSpans<Collection<String>> computeHighlighting(String text) {
 
-//        int lastKwEnd = 0;
+        int lastKwEnd = 0;
         StyleSpansBuilder<Collection<String>> spansBuilder = new StyleSpansBuilder<>();
-//        ExpressionPattern ep =Pattern.matchType(text);
-//        if(ep!=null&&ep.type()==null)
-//            spansBuilder.add(Collections.singleton("error"), text.length());
-//        else {
-//            Matcher matcher = getPATTERN().matcher(text);
-//            while (matcher.find()) {
-//                String styleClass =
-//                        matcher.group("KEYWORD") != null ? "keyword" :
-//                                matcher.group("PAREN") != null ? "paren" :
-//                                        matcher.group("BRACE") != null ? "brace" :
-//                                                matcher.group("BRACKET") != null ? "bracket" :
-//                                                        matcher.group("SEMICOLON") != null ? "semicolon" :
-//                                                                matcher.group("STRING") != null ? "string" :
-//                                                                        matcher.group("COMMENT") != null ? "comment" : null;
-//
-//                spansBuilder.add(Collections.emptyList(), matcher.start() - lastKwEnd);
-//                spansBuilder.add(Collections.singleton(styleClass), matcher.end() - matcher.start());
-//                lastKwEnd = matcher.end();
-//            }
-//            spansBuilder.add(Collections.emptyList(), text.length() - lastKwEnd);
-//        }
+
+        if(getType(text)==null)
+            spansBuilder.add(Collections.singleton("error"), text.length());
+        else {
+            Matcher matcher = Pattern.compile(core.Pattern.HIGHLIGHT).matcher(text);
+
+            while (matcher.find()) {
+                String styleClass =
+                        matcher.group("KEYWORD") != null ? "keyword" :
+                                matcher.group("PAREN") != null ? "paren" :
+                                        matcher.group("BRACE") != null ? "brace" :
+                                                matcher.group("BRACKET") != null ? "bracket" :
+                                                        matcher.group("SEMICOLON") != null ? "semicolon" :
+                                                                matcher.group("STRING") != null ? "string" :
+                                                                        matcher.group("COMMENT") != null ? "comment" : null;
+
+                spansBuilder.add(Collections.emptyList(), matcher.start() - lastKwEnd);
+                spansBuilder.add(Collections.singleton(styleClass), matcher.end() - matcher.start());
+                lastKwEnd = matcher.end();
+            }
+            spansBuilder.add(Collections.emptyList(), text.length() - lastKwEnd);
+        }
 
         return spansBuilder.create();
     }

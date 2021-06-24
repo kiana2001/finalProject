@@ -1,3 +1,0 @@
-public enum ExpressionType {
-    FOR_HEAD,FOR_END,LOGIC,PRINT,DIVIDER,UNDEFINED_VAR,DEFINED_VAR
-}
