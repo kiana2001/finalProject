@@ -22,8 +22,8 @@ public class File {
 
     public static void main(String[] args) throws IOException {
 
-        String data = "int x = 10" +
-                "int y = 30" +
+        String data = "int x = 10" + "\n" +
+                "int y = 30" +"\n" +
                 "int z" + "\n" +
                 "int num = 1" + "\n" +
                 "" + "\n" +
@@ -45,14 +45,17 @@ public class File {
                 "   print num" + "\n" +
                 "   num = num +1" + "\n" +
                 "end for";
+
         Reader reader = new StringReader(data);
         BufferedReader input = new BufferedReader(reader);
         while (true) {
             String line = input.readLine();
+
             if (line == null) {
                 break;
             }
-            System.out.println(data);
+            if(!line.equals(""))
+            System.out.println(getType(line));
         }
     }
 }
