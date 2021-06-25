@@ -1,17 +1,12 @@
-import java.io.*;
-import java.util.concurrent.atomic.AtomicReference;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.Reader;
+import java.io.StringReader;
 
 
 public class File {
     public static Parts getType(String data) {
-        String FOR_HEAD = "\\s*for\\s*\\d+\\s*";
-        String FOR_END = "\\s*end\\s+for\\s*";
-        String VARIABLE_WITH_AMOUNT = "\\s*(int|float)\\s*\\w+\\s*[=]\\s*\\d+\\s*";
-        String VARIABLE_WITHOUT_AMOUNT = "\\s*(int|float)\\s*\\w+\\s*";
-        String DIVIDER = "[%]+";
-        String MATH_OPERATION = "[\\w|\\d]+\\s*[=]\\s*[\\w|\\d]+\\s*[\\-*\\/+]\\s*[\\w|\\d]";
-        String PRINT = "print\\s*[\\w+|\\d]+\\s*";
-        String ASSIGNMENT = "\\w+\\s*[=]\\s*[\\w|\\d]+\\s*([\\-*\\/+]\\s*[\\w|\\d])*";
+
         if (data.matches(Pattern.FOR_HEAD)) return Parts.FOR_HEAD;
         if (data.matches(Pattern.FOR_END)) return Parts.END_FOR;
         if (data.matches(Pattern.VARIABLE_WITH_AMOUNT)) return Parts.DEFINE_VARIABLE_WITH_AMOUNT;
@@ -23,43 +18,41 @@ public class File {
 
         return null;
     }
-   static String data =
-            "int x = 10" + "\n" +
-                    "int y = 30" + "\n" +
-                    "int z" + "\n" +
-                    "int num = 1" + "\n" +
-                    "" + "\n" +
-                    "%%" + "\n" +
-                    "" + "\n" +
-                    "for 100" + "\n" +
-                    "   print num" + "\n" +
-                    "   num = num +1" + "\n" +
-                    "end for" + "\n" +
-                    "for 100" + "\n" +
-                    "   print num" + "\n" +
-                    "   num = num +1" + "\n" +
-                    "end for" + "\n" +
-                    "for 100" + "\n" +
-                    "   print num" + "\n" +
-                    "   num = num +1" + "\n" +
-                    "end for" + "\n" +
-                    "for 100" + "\n" +
-                    "   print num" + "\n" +
-                    "   num = num +1" + "\n" +
-                    "end for";
+
 
     public static void main(String[] args) throws IOException {
 
-
+        String data = "int x = 10" +
+                "int y = 30" +
+                "int z" + "\n" +
+                "int num = 1" + "\n" +
+                "" + "\n" +
+                "%%" + "\n" +
+                "" + "\n" +
+                "for 100" + "\n" +
+                "   print num" + "\n" +
+                "   num = num +1" + "\n" +
+                "end for" + "\n" +
+                "for 100" + "\n" +
+                "   print num" + "\n" +
+                "   num = num +1" + "\n" +
+                "end for" + "\n" +
+                "for 100" + "\n" +
+                "   print num" + "\n" +
+                "   num = num +1" + "\n" +
+                "end for" + "\n" +
+                "for 100" + "\n" +
+                "   print num" + "\n" +
+                "   num = num +1" + "\n" +
+                "end for";
         Reader reader = new StringReader(data);
         BufferedReader input = new BufferedReader(reader);
         while (true) {
-            var line = new AtomicReference<>(input.readLine());
-            if (line.get() == null) {
+            String line = input.readLine();
+            if (line == null) {
                 break;
             }
-            getType(data);
-            System.out.println(getType(data));
+            System.out.println(data);
         }
     }
 }
