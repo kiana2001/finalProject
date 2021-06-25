@@ -58,12 +58,13 @@ public class Editor extends CodeArea {
 
     private StyleSpans<Collection<String>> computeHighlighting(String text) {
 
-        int lastKwEnd = 0;
+
         StyleSpansBuilder<Collection<String>> spansBuilder = new StyleSpansBuilder<>();
 
         if(getType(text)==null)
             spansBuilder.add(Collections.singleton("error"), text.length());
         else {
+            int lastKwEnd = 0;
             Matcher matcher = Pattern.compile(core.Pattern.HIGHLIGHT).matcher(text);
 
             while (matcher.find()) {
