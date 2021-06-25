@@ -3,7 +3,6 @@ import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
 
-
 public class File {
     public static Parts getType(String data) {
 
@@ -23,7 +22,7 @@ public class File {
     public static void main(String[] args) throws IOException {
 
         String data = "int x = 10" + "\n" +
-                "int y = 30" +"\n" +
+                "int y = 30" + "\n" +
                 "int z" + "\n" +
                 "int num = 1" + "\n" +
                 "" + "\n" +
@@ -54,8 +53,10 @@ public class File {
             if (line == null) {
                 break;
             }
-            if(!line.equals(""))
-            System.out.println(getType(line));
+            if (!line.equals(""))
+             //   Main.Maches(data);
+            Main.Changer(data);
+
         }
     }
 }
