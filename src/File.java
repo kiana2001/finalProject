@@ -32,11 +32,11 @@ public class File {
                 "   print num" + "\n" +
                 "   num = num +1" + "\n" +
                 "end for" + "\n" +
-                "for 100" + "\n" +
+                "for 60" + "\n" +
                 "   print num" + "\n" +
                 "   num = num +1" + "\n" +
                 "end for" + "\n" +
-                "for 100" + "\n" +
+                "for 4" + "\n" +
                 "   print num" + "\n" +
                 "   num = num +1" + "\n" +
                 "end for" + "\n" +
@@ -49,13 +49,19 @@ public class File {
         BufferedReader input = new BufferedReader(reader);
         while (true) {
             String line = input.readLine();
-
             if (line == null) {
                 break;
             }
-            if (!line.equals(""))
+            if (!line.equals("")){
+             //   getType(data);
              //   Main.Maches(data);
-            Main.Changer(data);
+                Main.Changer(line);
+            }
+
+
+
+
+
 
         }
     }
