@@ -7,8 +7,7 @@ import javafx.scene.control.TabPane;
 public class Panel extends TabPane {
 
     public Panel(){
-        EditorTab t=new EditorTab();
-        t.setContent(new Editor());
+        EditorTab t=new EditorTab("Temp",this);
         getTabs().add(t);
     }
 
