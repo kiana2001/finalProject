@@ -23,7 +23,7 @@ public class Interpreter {
 
     private static String randString() {
         int leftLimit = 97; // letter 'a'
-        int rightLimit = 122; // letter 'z'
+        int rightLimit = 122; // letter 'zh'
         int targetStringLength = 10;
         Random random = new Random();
 
