@@ -22,7 +22,8 @@ public class Main extends Application {
         BorderPane EditorPane = new BorderPane();
         GridPane gp = new GridPane();
 
-        EditorPane.setCenter(new Panel());
+        Panel panel=new Panel();
+        EditorPane.setCenter(panel);
         EditorPane.setBottom(new Terminal());
 
         ColumnConstraints fileTreeColumn=new ColumnConstraints();
@@ -37,9 +38,10 @@ public class Main extends Application {
         gp.getColumnConstraints().addAll(fileTreeColumn,filePanelColumn);
 
         gp.add(EditorPane,1,0);
-        gp.add(new FileTree(),0,0);
+        FileTree tree=new FileTree();
+        gp.add(tree,0,0);
 
-        mainPane.setTop(new TopMenu());
+        mainPane.setTop(new TopMenu(panel,tree));
         mainPane.setCenter(gp);
 
         Scene scene = new Scene(mainPane);
