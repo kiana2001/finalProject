@@ -13,11 +13,11 @@
 .styled-text-area{
     -fx-background-color: #0f111a;
     -fx-font-family: JetBrainsMono;
+    -fx-font-size: 11pt;
 }
 .styled-text-area .caret {
     /* set the blink rate of the area */
     -fx-stroke: #cdb500 !important;
-    -fx-stroke-width:2px;
 }
 
 .selection
@@ -42,7 +42,6 @@
 
 .text  {
     -fx-fill: #C3D3DE;
-    -fx-font-size: 14px;
 }
 .context-menu {
     -fx-background-color: #303030;
@@ -105,13 +104,18 @@
 }
 .text-area .content{
     -fx-background-color: #090b10;
-
+    -fx-border-radius: 0 ;
+    -fx-background-radius: 0 ;
 }
+
 .text-area {
     -fx-background-color: #090b10;
     -fx-text-fill: #C3D3DE;
     -fx-font-size: 15px;
+    -fx-border-radius: 0 ;
+    -fx-background-radius: 0 ;
 }
+
 .button{
     -fx-background-color: #182929;
     -fx-background-radius: 0;
