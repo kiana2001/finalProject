@@ -65,7 +65,7 @@ public class Interpreter {
         return null;
     }
 
-    public static List<Integer> x2java(String x, String path) throws IOException {
+    public static List<Integer> x2java(String x, String path,String name) throws IOException {
         List<Integer> errors = new ArrayList<>();
         int lineNum = 1;
 
@@ -84,8 +84,8 @@ public class Interpreter {
             lineNum++;
         }
         if (errors.isEmpty()) {
-            File interpreted = new File(path + "\\Interpreted.java");
-            var result=toFile(interpreted,data.toString());
+            File interpreted = new File(path + "\\Interpreted_"+name+".java");
+            var result=toFile(interpreted,data.toString(),name);
             if(!result)
                 errors.add(-1);
         }
@@ -93,11 +93,12 @@ public class Interpreter {
 
     }
 
-    public static boolean toFile(File interpreted, String data) {
+    public static boolean toFile(File interpreted, String data,String name) {
 
         boolean result = true;
         String layout= """
-                public class Interpreted {
+                public class Interpreted_"""+ name + """
+                 {
                      public static void main(String[] args) {
                        """+ data + """
                      }

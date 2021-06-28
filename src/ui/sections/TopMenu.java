@@ -58,13 +58,15 @@ public class TopMenu extends HBox {
 
                 ((BorderPane) panel.getParent()).setBottom(terminal);
                 EditorTab tab = (EditorTab) panel.getSelectionModel().getSelectedItem();
-                File oldClass=new File(tab.getFile().getParentFile().getPath()+"\\Interpreted.class");
-                File oldClass1=new File(tab.getFile().getParentFile().getPath()+"\\Interpreted.java");
+                String name = tab.getText().split("\\.")[0].replace(" ","");
+
+                File oldClass=new File(tab.getFile().getParentFile().getPath()+"\\Interpreted"+name+".class");
+                File oldClass1=new File(tab.getFile().getParentFile().getPath()+"\\Interpreted"+name+".java");
                 oldClass1.delete();
                 oldClass.delete();
                 List<Integer> errors = new ArrayList<>();
                 try {
-                    errors = Interpreter.x2java(((Editor) (((VirtualizedScrollPane) tab.getContent()).getContent())).getText(), tab.getFile().getParentFile().getPath());
+                    errors = Interpreter.x2java(((Editor) (((VirtualizedScrollPane) tab.getContent()).getContent())).getText(), tab.getFile().getParentFile().getPath(),name);
                 } catch (IOException ioException) {
                     ioException.printStackTrace();
                 }
@@ -72,9 +74,9 @@ public class TopMenu extends HBox {
                 if (errors.isEmpty()) {
                     try {
 
-                        String command = "javac Interpreted.java";
+                        String command = "javac Interpreted_"+name+".java";
                         terminal.runCommand(command, tab.getFile().getParentFile().getPath());
-                        command = "java Interpreted";
+                        command = "java Interpreted_"+name;
                         terminal.runCommand(command, tab.getFile().getParentFile().getPath());
 
                     } catch (IOException ioException) {
