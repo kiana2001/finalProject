@@ -61,8 +61,8 @@ public class TopMenu extends HBox {
                 EditorTab tab = (EditorTab) panel.getSelectionModel().getSelectedItem();
                 String name = tab.getText().split("\\.")[0].replace(" ","");
 
-                File oldClass=new File(tab.getFile().getParentFile().getPath()+"\\Interpreted"+name+".class");
-                File oldClass1=new File(tab.getFile().getParentFile().getPath()+"\\Interpreted"+name+".java");
+                File oldClass=new File(tab.getFile().getParentFile().getPath()+"\\Interpreted_"+name+".class");
+                File oldClass1=new File(tab.getFile().getParentFile().getPath()+"\\Interpreted_"+name+".java");
                 oldClass1.delete();
                 oldClass.delete();
                 List<Integer> errors = new ArrayList<>();
