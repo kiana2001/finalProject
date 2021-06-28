@@ -2,6 +2,7 @@
     font-family: JetBrainsMono;
     src: url("assets/JetBrainsMono-Regular.ttf");
 }
+
 .keyword {
     -fx-fill: #C792EA !important;
     -fx-font-weight: bold ;
@@ -12,12 +13,10 @@
 }
 .styled-text-area{
     -fx-background-color: #0f111a;
-    -fx-font-family: JetBrainsMono;
+    -fx-font-size: 10.9pt;
 }
 .styled-text-area .caret {
-    /* set the blink rate of the area */
     -fx-stroke: #cdb500 !important;
-    -fx-stroke-width:2px;
 }
 
 .selection
@@ -42,7 +41,7 @@
 
 .text  {
     -fx-fill: #C3D3DE;
-    -fx-font-size: 14px;
+    -fx-font-family:JetBrainsMono;
 }
 .context-menu {
     -fx-background-color: #303030;
@@ -64,7 +63,7 @@
 }
 
 .paragraph-text {
-    -fx-padding:  0 0 0 2;
+    -fx-padding:  0 0 0 3;
 }
 .tree-cell {
     -fx-background-color: #090b10;
@@ -90,12 +89,13 @@
 
 .tab:selected {
     -fx-font-size: 13;
-    -fx-font-weight: bold;
     -fx-background-color: #293360;
 }
 .lineno {
     -fx-background-color: #282C34;
-    -fx-font: 13px "Consolas";
+    -fx-font-weight: bold;
+    -fx-pref-width: 35;
+    -fx-font-size: 13;
     -fx-text-fill: #4B5262;
 
 }
@@ -105,14 +105,56 @@
 }
 .text-area .content{
     -fx-background-color: #090b10;
-
+    -fx-border-radius: 0 ;
+    -fx-background-radius: 0 ;
 }
+
 .text-area {
     -fx-background-color: #090b10;
     -fx-text-fill: #C3D3DE;
     -fx-font-size: 15px;
+    -fx-border-radius: 0 ;
+    -fx-background-radius: 0 ;
 }
+
 .button{
     -fx-background-color: #182929;
     -fx-background-radius: 0;
+}
+.hbox {
+    -fx-background-color: #182929;
+}
+/** Scrollbar CSS **/
+
+.scroll-bar:horizontal ,
+.scroll-bar:vertical{
+    -fx-background-color:#090b10;
+}
+
+.increment-button , .decrement-button {
+    -fx-background-color:#090b10;
+    -fx-background-radius: 2em;
+}
+
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track{
+    -fx-background-color: transparent;
+    -fx-border-color:derive(#090b10,80%);
+    -fx-background-radius: 2em;
+    -fx-border-radius:2em;
+}
+
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-background-color:derive(black,90%);
+    -fx-background-insets: 2, 0, 0;
+    -fx-background-radius: 2em;
+
+
+}
+
+/* The main scrollbar **thumb** CSS class on event of "hover" and "pressed" */
+.scroll-bar .thumb:hover,
+.scroll-bar .thumb:pressed{
+    -fx-background-color: derive(black,50%);
 }

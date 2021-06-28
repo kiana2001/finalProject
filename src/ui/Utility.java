@@ -16,7 +16,7 @@ import java.io.IOException;
 
 public class Utility {
 
-    public static void saveTab(TabPane tabPane, FileTree ft) {
+    public static boolean saveTab(TabPane tabPane, FileTree ft) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save");
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("X files (*.X)", "*.X"));
@@ -32,8 +32,9 @@ public class Utility {
                     BufferedWriter writer = new BufferedWriter(new FileWriter(file));
                     writer.write(((Editor) (((VirtualizedScrollPane) tab.getContent()).getContent())).getText());
                     writer.close();
-
                     ft.addItem(fv);
+
+                    return true;
                 } catch (IOException ex) {
                     System.out.println(ex.getMessage());
                 }
@@ -44,9 +45,12 @@ public class Utility {
                 BufferedWriter writer = new BufferedWriter(new FileWriter(((EditorTab) tab).getFile()));
                 writer.write(((Editor)(((VirtualizedScrollPane) tab.getContent()).getContent())).getText());
                 writer.close();
+
+                return true;
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
         }
+        return false;
     }
 }

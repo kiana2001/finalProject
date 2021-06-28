@@ -1,9 +1,7 @@
 package ui;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import ui.sections.FileTree;
@@ -17,14 +15,15 @@ public class Main extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
         BorderPane mainPane = new BorderPane();
         BorderPane EditorPane = new BorderPane();
         GridPane gp = new GridPane();
 
         Panel panel=new Panel();
         EditorPane.setCenter(panel);
-        EditorPane.setBottom(new Terminal());
+        Terminal terminal=new Terminal();
+        EditorPane.setBottom(terminal);
 
         ColumnConstraints fileTreeColumn=new ColumnConstraints();
         fileTreeColumn.setPercentWidth(15);
@@ -38,15 +37,16 @@ public class Main extends Application {
         gp.getColumnConstraints().addAll(fileTreeColumn,filePanelColumn);
 
         gp.add(EditorPane,1,0);
-        FileTree tree=new FileTree();
+        FileTree tree=new FileTree(panel);
         gp.add(tree,0,0);
 
-        mainPane.setTop(new TopMenu(panel,tree));
+        mainPane.setTop(new TopMenu(panel,tree,terminal));
         mainPane.setCenter(gp);
 
         Scene scene = new Scene(mainPane);
-        scene.getStylesheets().add("ui/style.css");
+        scene.getStylesheets().add("ui/style-dark.css");
 
+        primaryStage.getIcons().add(new Image("core/logo.png"));
         primaryStage.setMaximized(true);
         primaryStage.setScene(scene);
         primaryStage.setTitle("X ide");
