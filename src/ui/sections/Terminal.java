@@ -36,9 +36,10 @@ public class Terminal extends BorderPane {
         Process child = Runtime.getRuntime().exec(command,null,new File(path));
         BufferedReader in = new BufferedReader(new InputStreamReader(child.getInputStream()));
         BufferedReader error = new BufferedReader(new InputStreamReader(child.getErrorStream()));
-
+        textArea.clear();
         String line;
         while((line =in.readLine())!=null){
+            textArea.setStyle(null);
             textArea.appendText(line+"\n");
         }
         while((line =error.readLine())!=null){

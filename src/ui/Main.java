@@ -1,9 +1,6 @@
 package ui;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import ui.sections.FileTree;
@@ -46,7 +43,7 @@ public class Main extends Application {
         mainPane.setCenter(gp);
 
         Scene scene = new Scene(mainPane);
-        scene.getStylesheets().add("ui/style.css");
+        scene.getStylesheets().add("ui/style-dark.css");
 
         primaryStage.setMaximized(true);
         primaryStage.setScene(scene);
