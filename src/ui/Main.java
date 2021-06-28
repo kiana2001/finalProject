@@ -24,7 +24,8 @@ public class Main extends Application {
 
         Panel panel=new Panel();
         EditorPane.setCenter(panel);
-        EditorPane.setBottom(new Terminal());
+        Terminal terminal=new Terminal();
+        EditorPane.setBottom(terminal);
 
         ColumnConstraints fileTreeColumn=new ColumnConstraints();
         fileTreeColumn.setPercentWidth(15);
@@ -41,7 +42,7 @@ public class Main extends Application {
         FileTree tree=new FileTree();
         gp.add(tree,0,0);
 
-        mainPane.setTop(new TopMenu(panel,tree));
+        mainPane.setTop(new TopMenu(panel,tree,terminal));
         mainPane.setCenter(gp);
 
         Scene scene = new Scene(mainPane);

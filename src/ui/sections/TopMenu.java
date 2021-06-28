@@ -1,5 +1,6 @@
 package ui.sections;
 
+import core.Interpreter;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -9,13 +10,16 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
+import org.fxmisc.flowless.VirtualizedScrollPane;
 import ui.Utility;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TopMenu extends HBox {
 
-    public TopMenu(TabPane panel, FileTree ft) {
+    public TopMenu(TabPane panel, FileTree ft,Terminal terminal) {
         Node runIcon = new ImageView(new Image("ui/assets/run.png"));
 
         Menu m = new Menu("File");
@@ -42,9 +46,35 @@ public class TopMenu extends HBox {
 
         saveFile.setOnAction(e -> Utility.saveTab(panel,ft));
 
-//        run.setOnAction(e -> {
-//        });
-//
+        run.setOnAction(e -> {
+            var result=Utility.saveTab(panel,ft);
+            if(result) {
+                var tab = panel.getSelectionModel().getSelectedItem();
+                List<Integer> errors = new ArrayList<>();
+                try {
+                    errors = Interpreter.x2java(((Editor) (((VirtualizedScrollPane) tab.getContent()).getContent())).getText(), ((EditorTab) tab).getFile().getParentFile().getPath());
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+                if (errors.isEmpty()) {
+                    try {
+
+                        String command = "javac Interpreted.java";
+                        terminal.runCommand(command, ((EditorTab) tab).getFile().getParentFile().getPath());
+                        command = "java Interpreted";
+                        terminal.runCommand(command, ((EditorTab) tab).getFile().getParentFile().getPath());
+
+                    } catch (IOException ioException) {
+                        ioException.printStackTrace();
+                    }
+                } else {
+                    for (var error : errors) {
+                        terminal.appendText("Error at line:" + error + "\n");
+                    }
+                }
+            }
+        });
+
         openFile.setOnAction(e -> {
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Open");
