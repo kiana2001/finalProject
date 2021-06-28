@@ -15,7 +15,7 @@ public class Main extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
         BorderPane mainPane = new BorderPane();
         BorderPane EditorPane = new BorderPane();
         GridPane gp = new GridPane();
