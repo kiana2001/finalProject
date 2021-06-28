@@ -1,9 +1,6 @@
 package core;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.Reader;
-import java.io.StringReader;
+import java.io.*;
 import java.util.Random;
 
 public class Interpreter {
@@ -16,7 +13,7 @@ public class Interpreter {
         if (string.matches(Pattern.DIVIDER)) return Parts.DIVIDER;
         if (string.matches(Pattern.MATH_OPERATION)) return Parts.MATH_OPERATION;
         if (string.matches(Pattern.PRINT)) return Parts.PRINT;
-        if (string.matches(Pattern.ASSIGNMENT))  return Parts.ASSIGNEMNT;
+        if (string.matches(Pattern.ASSIGNMENT))  return Parts.ASSIGNMENT;
 
         return null;
     }
@@ -49,7 +46,7 @@ public class Interpreter {
         } else if (Parts.PRINT.equals(type)) {
             return string.replaceAll(Pattern.PRINT, "System.out."+"$1"+"ln."+"($2);");
 
-        } else if (Parts.ASSIGNEMNT.equals(type)) {
+        } else if (Parts.ASSIGNMENT.equals(type)) {
             return string.replaceAll(Pattern.ASSIGNMENT, "$1$2$3$4;");
 
         } else if (Parts.FOR_HEAD.equals(type)) {
@@ -65,43 +62,29 @@ public class Interpreter {
 
         return null;
     }
-    public static boolean toFile(String path) throws IOException {
-        String data = "int x = 10" + "\n" +
-                "int y = 30" + "\n" +
-                "int z" + "\n" +
-                "int num = 1" + "\n" +
-                "" + "\n" +
-                "%%" + "\n" +
-                "" + "\n" +
-                "for 100" + "\n" +
-                "   print num" + "\n" +
-                "   num = num +1" + "\n" +
-                "end for" + "\n" +
-                "for 60" + "\n" +
-                "   print num" + "\n" +
-                "   num = num +1" + "\n" +
-                "end for" + "\n" +
-                "for 4" + "\n" +
-                "   print num" + "\n" +
-                "   num = num +1" + "\n" +
-                "end for" + "\n" +
-                "for 100" + "\n" +
-                "   print num" + "\n" +
-                "   num = num +1" + "\n" +
-                "end for";
+    public static boolean toFile(String path,String data)  {
 
-        Reader reader = new StringReader(data);
-        BufferedReader input = new BufferedReader(reader);
-        while (true) {
-            String line = input.readLine();
-            if (line == null) {
-                break;
-            }
-            if (!line.equals("")){
-                System.out.println(Interpreter.Changer(line));
-            }
+        boolean result=true;
 
+        try (PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(path)))){
+
+            BufferedReader input = new BufferedReader(new StringReader(data));
+            while (true) {
+                String line = input.readLine();
+                if (line == null) {
+                    break;
+                }
+                if (!line.equals("")) {
+                    out.println(Interpreter.Changer(line));
+                }
+
+            }
         }
-        return true;
+        catch (IOException e){
+            e.printStackTrace();
+            result = false;
+        }
+
+        return result;
     }
 }
