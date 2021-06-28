@@ -124,3 +124,44 @@
 .hbox {
     -fx-background-color: #182929;
 }
+/** Scrollbar CSS **/
+
+.scroll-bar:horizontal ,
+.scroll-bar:vertical{
+    -fx-background-color:#090b10;
+}
+
+.increment-button , .decrement-button {
+    -fx-background-color:#090b10;
+    -fx-background-radius: 2em;
+}
+
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track{
+    -fx-background-color: transparent;
+    -fx-border-color:derive(#090b10,80%);
+    -fx-background-radius: 2em;
+    -fx-border-radius:2em;
+}
+
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-background-color:derive(black,90%);
+    -fx-background-insets: 2, 0, 0;
+    -fx-background-radius: 2em;
+
+
+}
+
+/* The main scrollbar **thumb** CSS class on event of "hover" and "pressed" */
+.scroll-bar .thumb:hover,
+.scroll-bar .thumb:pressed{
+    -fx-background-color: derive(black,50%);
+}
+
+
+.increment-button:hover , .decrement-button:hover {
+    -fx-background-color:derive(#090b10,100%);
+    -fx-border-color:derive(gray,80%);
+    -fx-padding:10px;
+}
