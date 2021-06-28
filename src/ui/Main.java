@@ -1,6 +1,7 @@
 package ui;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import ui.sections.FileTree;
@@ -45,6 +46,7 @@ public class Main extends Application {
         Scene scene = new Scene(mainPane);
         scene.getStylesheets().add("ui/style-dark.css");
 
+        primaryStage.getIcons().add(new Image("core/logo.png"));
         primaryStage.setMaximized(true);
         primaryStage.setScene(scene);
         primaryStage.setTitle("X ide");

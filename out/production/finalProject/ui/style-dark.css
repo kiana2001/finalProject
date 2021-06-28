@@ -1,0 +1,160 @@
+@font-face {
+    font-family: JetBrainsMono;
+    src: url("assets/JetBrainsMono-Regular.ttf");
+}
+
+.keyword {
+    -fx-fill: #C792EA !important;
+    -fx-font-weight: bold ;
+}
+.semicolon {
+    -fx-fill: #b22222;
+    -fx-font-weight: bold;
+}
+.styled-text-area{
+    -fx-background-color: #0f111a;
+    -fx-font-size: 10.9pt;
+}
+.styled-text-area .caret {
+    -fx-stroke: #cdb500 !important;
+}
+
+.selection
+{
+    -fx-fill: #3b3f51;
+}
+.error {
+    -fx-fill: firebrick !important;
+    -fx-font-weight: bold;
+}
+.bracket {
+    -fx-fill: darkgreen;
+    -fx-font-weight: bold;
+}
+.brace {
+    -fx-fill: teal;
+    -fx-font-weight: bold;
+}
+.string {
+    -fx-fill: blue;
+}
+
+.text  {
+    -fx-fill: #C3D3DE;
+    -fx-font-family:JetBrainsMono;
+}
+.context-menu {
+    -fx-background-color: #303030;
+    -fx-background-insets: 0, 1, 2;
+    -fx-background-radius: 0 6 6 6, 0 5 5 5, 0 4 4 4;
+    -fx-padding: 0.333333em 0.083333em 0.666667em 0.083333em;
+}
+
+.menu-bar {
+    -fx-background-color: #182929;
+}
+.menu:hover , .menu:showing, .menu-item:hover,.menu-item:showing,.button:hover{
+    -fx-background-color: #0c1515;
+    -fx-fill-color: #0c1515;
+}
+.menu:pressed , .menu:pressed, .menu-item:pressed,.menu-item:pressed,.button:pressed{
+    -fx-background-color: #1f3535;
+    -fx-fill-color: #1f3535;
+}
+
+.paragraph-text {
+    -fx-padding:  0 0 0 3;
+}
+.tree-cell {
+    -fx-background-color: #090b10;
+}
+.tree-view {
+    -fx-focus-color: #090b10;
+    -fx-background-color: #090b10;
+}
+.tree-cell:selected {
+    -fx-font-weight: bold ;
+    -fx-background-color: #1a1c25;
+}
+.comment {
+    -fx-fill: cadetblue;
+}
+.tab-pane *.tab-header-area *.tab-header-background {
+    -fx-background-color: #090b10;
+}
+.tab {
+    -fx-font-size: 12;
+    -fx-background-color: #1c1f32;
+}
+
+.tab:selected {
+    -fx-font-size: 13;
+    -fx-background-color: #293360;
+}
+.lineno {
+    -fx-background-color: #282C34;
+    -fx-font-weight: bold;
+    -fx-pref-width: 35;
+    -fx-font-size: 13;
+    -fx-text-fill: #4B5262;
+
+}
+
+.paragraph-box:has-caret {
+    -fx-background-color: #1a1c25;
+}
+.text-area .content{
+    -fx-background-color: #090b10;
+    -fx-border-radius: 0 ;
+    -fx-background-radius: 0 ;
+}
+
+.text-area {
+    -fx-background-color: #090b10;
+    -fx-text-fill: #C3D3DE;
+    -fx-font-size: 15px;
+    -fx-border-radius: 0 ;
+    -fx-background-radius: 0 ;
+}
+
+.button{
+    -fx-background-color: #182929;
+    -fx-background-radius: 0;
+}
+.hbox {
+    -fx-background-color: #182929;
+}
+/** Scrollbar CSS **/
+
+.scroll-bar:horizontal ,
+.scroll-bar:vertical{
+    -fx-background-color:#090b10;
+}
+
+.increment-button , .decrement-button {
+    -fx-background-color:#090b10;
+    -fx-background-radius: 2em;
+}
+
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track{
+    -fx-background-color: transparent;
+    -fx-border-color:derive(#090b10,80%);
+    -fx-background-radius: 2em;
+    -fx-border-radius:2em;
+}
+
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-background-color:derive(black,90%);
+    -fx-background-insets: 2, 0, 0;
+    -fx-background-radius: 2em;
+
+
+}
+
+/* The main scrollbar **thumb** CSS class on event of "hover" and "pressed" */
+.scroll-bar .thumb:hover,
+.scroll-bar .thumb:pressed{
+    -fx-background-color: derive(black,50%);
+}
