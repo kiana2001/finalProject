@@ -5,10 +5,11 @@ public class Pattern {
     public static String FOR_END="\\s*(end)(\\s+)(for)\\s*";
     public static String VARIABLE_WITH_AMOUNT="\\s*(int|float)(\\s*)(\\w+)\\s*([=])\\s*(\\d+)\\s*";
     public static String VARIABLE_WITHOUT_AMOUNT="\\s*(int|float)(\\s+)(\\w+)\\s*";
-    public static String DIVIDER="[%]+";
-    public static String MATH_OPERATION="\\s*([\\w|\\d])+\\s*([=])\\s*([\\w|\\d])+\\s*([\\-*\\/+])\\s*([\\w|\\d])";
+    public static String DIVIDER="\\s*[%]+\\s*";
+    public static String MATH_OPERATION="\\s*([\\w|\\d])+\\s*([=])\\s*([\\w|\\d])+\\s*([\\-*\\/+])\\s*([\\w|\\d])\\s*";
+    // x = w + 50
     public static String PRINT="\\s*(print)\\s+([\\w+|\\d])+\\s*";
-    public static String ASSIGNMENT ="\\s*(\\w+)\\s*([=])\\s*([\\w|\\d]+)\\s*([\\-*\\/+]\\s*[\\w|\\d]*)";
+    public static String ASSIGNMENT ="\\s*(\\w+)\\s*([=])\\s*([\\w|\\d]+)\\s*([\\-*\\/+]*\\s*[\\w|\\d]*)";
 
     private static final String[] KEYWORDS = new String[] {
             "abstract", "assert", "boolean", "break", "byte",
