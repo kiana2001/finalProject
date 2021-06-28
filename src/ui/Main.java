@@ -39,7 +39,7 @@ public class Main extends Application {
         gp.getColumnConstraints().addAll(fileTreeColumn,filePanelColumn);
 
         gp.add(EditorPane,1,0);
-        FileTree tree=new FileTree();
+        FileTree tree=new FileTree(panel);
         gp.add(tree,0,0);
 
         mainPane.setTop(new TopMenu(panel,tree,terminal));

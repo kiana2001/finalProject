@@ -53,7 +53,7 @@ public class Interpreter {
 
         } else if (Parts.FOR_HEAD.equals(type)) {
             String randomString = randString();
-            return string.replaceAll(Pattern.FOR_HEAD, "$1" + "(int " + randomString + "=0;" + randomString + "<=" + "$2;" + randomString + "++){");
+            return string.replaceAll(Pattern.FOR_HEAD, "$1" + "(int " + randomString + "=0;" + randomString + "<" + "$2;" + randomString + "++){");
         } else if (Parts.END_FOR.equals(type)) {
             return string.replaceAll(Pattern.FOR_END, "}");
 
@@ -100,7 +100,7 @@ public class Interpreter {
                 public class Interpreted {
                      public static void main(String[] args) {
                        """+ data + """
-                }
+                     }
                 }""";
         try (PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(interpreted)))) {
             out.print(layout);

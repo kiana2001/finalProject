@@ -5,10 +5,7 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.stage.FileChooser;
 import org.fxmisc.flowless.VirtualizedScrollPane;
 import ui.Utility;
@@ -49,6 +46,7 @@ public class TopMenu extends HBox {
         run.setOnAction(e -> {
             var result=Utility.saveTab(panel,ft);
             if(result) {
+                ((BorderPane)panel.getParent()).setBottom(terminal);
                 var tab = panel.getSelectionModel().getSelectedItem();
                 List<Integer> errors = new ArrayList<>();
                 try {
@@ -69,7 +67,7 @@ public class TopMenu extends HBox {
                     }
                 } else {
                     for (var error : errors) {
-                        terminal.appendText("Error at line:" + error + "\n");
+                        terminal.addText("Error at line:" + error + "\n");
                     }
                 }
             }
@@ -94,18 +92,20 @@ public class TopMenu extends HBox {
                         }
                     else{
                         for(var t:panel.getTabs()){
-                            var path1=((EditorTab) t).getFile().getPath();
-                            var path2=file.getPath();
-                            if(path1.equals(path2)) {
-                                panel.getSelectionModel().select(t);
-                                break;
+                            if(((EditorTab) t).getFile()!=null) {
+                                var path1 = ((EditorTab) t).getFile().getPath();
+                                var path2 = file.getPath();
+                                if (path1.equals(path2)) {
+                                    panel.getSelectionModel().select(t);
+                                    break;
+                                }
                             }
                         }
                     }
                 }
             }
             catch(Exception ex){
-                System.out.println("Can not open file");
+                ex.printStackTrace();
             }
         });
 //
