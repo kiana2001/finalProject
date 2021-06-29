@@ -16,6 +16,7 @@ public class Interpreter {
         if (string.matches(Pattern.MATH_OPERATION)) return Parts.MATH_OPERATION;
         if (string.matches(Pattern.PRINT)) return Parts.PRINT;
         if (string.matches(Pattern.ASSIGNMENT)) return Parts.ASSIGNMENT;
+        if (string.matches(Pattern.SPACE)) return Parts.SPACE;
 
         return null;
     }
@@ -60,47 +61,50 @@ public class Interpreter {
         } else if (Parts.DIVIDER.equals(type)) {
             return "\n";
 
+        }else if (Parts.SPACE.equals(type)) {
+            return "";
+
         }
 
         return null;
     }
 
-    public static List<Integer> x2java(String x, String path,String name) throws IOException {
+    public static List<Integer> x2java(String x, String path, String name) throws IOException {
         List<Integer> errors = new ArrayList<>();
         int lineNum = 1;
 
         BufferedReader sc = new BufferedReader(new StringReader(x));
-        StringBuilder data= new StringBuilder();
+        StringBuilder data = new StringBuilder();
 
         String line;
         while ((line = sc.readLine()) != null) {
 
             if (getType(line) == null && !line.equals(""))
                 errors.add(lineNum);
-            else if(getType(line)!=null){
+            else if (getType(line) != null) {
                 data.append(Interpreter.Changer(line));
                 data.append("\n");
             }
             lineNum++;
         }
         if (errors.isEmpty()) {
-            File interpreted = new File(path + "\\Interpreted_"+name+".java");
-            var result=toFile(interpreted,data.toString(),name);
-            if(!result)
+            File interpreted = new File(path + "\\Interpreted_" + name + ".java");
+            var result = toFile(interpreted, data.toString(), name);
+            if (!result)
                 errors.add(-1);
         }
         return errors;
 
     }
 
-    public static boolean toFile(File interpreted, String data,String name) {
+    public static boolean toFile(File interpreted, String data, String name) {
 
         boolean result = true;
-        String layout= """
-                public class Interpreted_"""+ name + """
-                 {
-                     public static void main(String[] args) {
-                       """+ data + """
+        String layout = """
+                public class Interpreted_""" + name + """
+                {
+                    public static void main(String[] args) {
+                      """ + data + """
                      }
                 }""";
         try (PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(interpreted)))) {

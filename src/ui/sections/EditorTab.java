@@ -10,26 +10,29 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
 public class EditorTab extends Tab {
-    private File file=null;
-    public EditorTab(String name, TabPane p){
+    private File file = null;
+
+    public EditorTab(String name, TabPane p) {
         super(name);
 
-        setOnCloseRequest(e->{
-            if(p.getTabs().size() == 1) {
-                EditorTab t = new EditorTab("Temp",p);
+        setOnCloseRequest(e -> {
+            if (p.getTabs().size() == 1) {
+                EditorTab t = new EditorTab("Temp", p);
                 t.setContent(new VirtualizedScrollPane<>(new Editor()));
                 p.getTabs().add(t);
             }
         });
         setContent(new VirtualizedScrollPane<>(new Editor()));
     }
-    public EditorTab(String name, TabPane p,String text){
-        this(name,p);
+
+    public EditorTab(String name, TabPane p, String text) {
+        this(name, p);
         setContent(new VirtualizedScrollPane<>(new Editor(text)));
     }
-    public EditorTab(String name, TabPane p,FileView f) throws IOException {
-        this(name,p);
-        this.file=f;
+
+    public EditorTab(String name, TabPane p, FileView f) throws IOException {
+        this(name, p);
+        this.file = f;
         FileInputStream fis = new FileInputStream(f);
         byte[] data = new byte[(int) f.length()];
         fis.read(data);

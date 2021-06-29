@@ -9,7 +9,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
-import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import org.fxmisc.flowless.VirtualizedScrollPane;
 import ui.Utility;
@@ -59,15 +58,15 @@ public class TopMenu extends HBox {
 
                 ((BorderPane) panel.getParent()).setBottom(terminal);
                 EditorTab tab = (EditorTab) panel.getSelectionModel().getSelectedItem();
-                String name = tab.getText().split("\\.")[0].replace(" ","");
+                String name = tab.getText().split("\\.")[0].replace(" ", "");
 
-                File oldClass=new File(tab.getFile().getParentFile().getPath()+"\\Interpreted_"+name+".class");
-                File oldClass1=new File(tab.getFile().getParentFile().getPath()+"\\Interpreted_"+name+".java");
+                File oldClass = new File(tab.getFile().getParentFile().getPath() + "\\Interpreted_" + name + ".class");
+                File oldClass1 = new File(tab.getFile().getParentFile().getPath() + "\\Interpreted_" + name + ".java");
                 oldClass1.delete();
                 oldClass.delete();
                 List<Integer> errors = new ArrayList<>();
                 try {
-                    errors = Interpreter.x2java(((Editor) (((VirtualizedScrollPane) tab.getContent()).getContent())).getText(), tab.getFile().getParentFile().getPath(),name);
+                    errors = Interpreter.x2java(((Editor) (((VirtualizedScrollPane) tab.getContent()).getContent())).getText(), tab.getFile().getParentFile().getPath(), name);
                 } catch (IOException ioException) {
                     ioException.printStackTrace();
                 }
@@ -75,9 +74,9 @@ public class TopMenu extends HBox {
                 if (errors.isEmpty()) {
                     try {
 
-                        String command = "javac Interpreted_"+name+".java";
+                        String command = "javac Interpreted_" + name + ".java";
                         terminal.runCommand(command, tab.getFile().getParentFile().getPath());
-                        command = "java Interpreted_"+name;
+                        command = "java Interpreted_" + name;
                         terminal.runCommand(command, tab.getFile().getParentFile().getPath());
 
                     } catch (IOException ioException) {

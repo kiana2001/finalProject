@@ -14,46 +14,40 @@ import org.fxmisc.richtext.model.StyleSpansBuilder;
 import org.reactfx.collection.ListModification;
 
 import java.util.Collection;
-
 import java.util.Collections;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static core.Interpreter.*;
+import static core.Interpreter.getType;
 
 public class Editor extends CodeArea {
 
 
-    private static class VisibleParagraphStyler<PS, SEG, S> implements Consumer<ListModification<? extends Paragraph<PS, SEG, S>>> {
-        private final GenericStyledArea<PS, SEG, S> area;
-        private final Function<String, StyleSpans<S>> computeStyles;
-        private int prevParagraph, prevTextLength;
+    public Editor() {
+        setParagraphGraphicFactory(LineNumberFactory.get(this));
+        setContextMenu(new DefaultContextMenu());
 
-        public VisibleParagraphStyler( GenericStyledArea<PS, SEG, S> area, Function<String,StyleSpans<S>> computeStyles )
+        getVisibleParagraphs().addModificationObserver(new VisibleParagraphStyler<>(this, this::computeHighlighting));
+
+
+        final java.util.regex.Pattern whiteSpace = java.util.regex.Pattern.compile("^\\s+");
+        addEventHandler(KeyEvent.KEY_PRESSED, KE ->
         {
-            this.computeStyles = computeStyles;
-            this.area = area;
-        }
-
-        @Override
-        public void accept( ListModification<? extends Paragraph<PS, SEG, S>> lm )
-        {
-            if ( lm.getAddedSize() > 0 )
-            {
-                int paragraph = Math.min( area.firstVisibleParToAllParIndex() + lm.getFrom(), area.getParagraphs().size()-1 );
-                String text = area.getText( paragraph, 0, paragraph, area.getParagraphLength( paragraph ) );
-
-                if ( paragraph != prevParagraph || text.length() != prevTextLength )
-                {
-                    int startPos = area.getAbsolutePosition( paragraph, 0 );
-                    Platform.runLater( () -> area.setStyleSpans( startPos, computeStyles.apply( text ) ) );
-                    prevTextLength = text.length();
-                    prevParagraph = paragraph;
-                }
+            if (KE.getCode() == KeyCode.ENTER) {
+                int caretPosition = getCaretPosition();
+                int currentParagraph = getCurrentParagraph();
+                Matcher m0 = whiteSpace.matcher(getParagraph(currentParagraph - 1).getSegments().get(0));
+                if (m0.find()) Platform.runLater(() -> insertText(caretPosition, m0.group()));
             }
-        }
+        });
+        setText("\n");
+    }
+
+    public Editor(String text) {
+        this();
+        setText(text);
     }
 
     private StyleSpans<Collection<String>> computeHighlighting(String text) {
@@ -61,7 +55,7 @@ public class Editor extends CodeArea {
 
         StyleSpansBuilder<Collection<String>> spansBuilder = new StyleSpansBuilder<>();
 
-        if(getType(text)==null)
+        if (getType(text) == null)
             spansBuilder.add(Collections.singleton("error"), text.length());
         else {
             int lastKwEnd = 0;
@@ -87,19 +81,56 @@ public class Editor extends CodeArea {
         return spansBuilder.create();
     }
 
+    public void setText(String text) {
+        this.replaceText(0, 0, text);
+    }
+
+    private static class VisibleParagraphStyler<PS, SEG, S> implements Consumer<ListModification<? extends Paragraph<PS, SEG, S>>> {
+        private final GenericStyledArea<PS, SEG, S> area;
+        private final Function<String, StyleSpans<S>> computeStyles;
+        private int prevParagraph, prevTextLength;
+
+        public VisibleParagraphStyler(GenericStyledArea<PS, SEG, S> area, Function<String, StyleSpans<S>> computeStyles) {
+            this.computeStyles = computeStyles;
+            this.area = area;
+        }
+
+        @Override
+        public void accept(ListModification<? extends Paragraph<PS, SEG, S>> lm) {
+            if (lm.getAddedSize() > 0) {
+                int paragraph = Math.min(area.firstVisibleParToAllParIndex() + lm.getFrom(), area.getParagraphs().size() - 1);
+                String text = area.getText(paragraph, 0, paragraph, area.getParagraphLength(paragraph));
+
+                if (paragraph != prevParagraph || text.length() != prevTextLength) {
+                    int startPos = area.getAbsolutePosition(paragraph, 0);
+                    Platform.runLater(() -> area.setStyleSpans(startPos, computeStyles.apply(text)));
+                    prevTextLength = text.length();
+                    prevParagraph = paragraph;
+                }
+            }
+        }
+    }
 
     private static class DefaultContextMenu extends ContextMenu {
 
-        public DefaultContextMenu()
-        {
+        public DefaultContextMenu() {
             MenuItem fold = new MenuItem("Fold selected text");
-            fold.setOnAction(AE -> { hide(); fold(); } );
+            fold.setOnAction(AE -> {
+                hide();
+                fold();
+            });
 
             MenuItem unfold = new MenuItem("Unfold from cursor");
-            unfold.setOnAction(AE -> { hide(); unfold(); } );
+            unfold.setOnAction(AE -> {
+                hide();
+                unfold();
+            });
 
             MenuItem print = new MenuItem("Print");
-            print.setOnAction(AE -> { hide(); print(); } );
+            print.setOnAction(AE -> {
+                hide();
+                print();
+            });
 
             getItems().addAll(fold, unfold, print);
         }
@@ -116,38 +147,11 @@ public class Editor extends CodeArea {
          */
         private void unfold() {
             CodeArea area = (CodeArea) getOwnerNode();
-            area.unfoldParagraphs( area.getCurrentParagraph() );
+            area.unfoldParagraphs(area.getCurrentParagraph());
         }
 
         private void print() {
-            System.out.println( ((CodeArea) getOwnerNode()).getText() );
+            System.out.println(((CodeArea) getOwnerNode()).getText());
         }
-    }
-
-    public Editor(){
-        setParagraphGraphicFactory(LineNumberFactory.get(this));
-        setContextMenu(new DefaultContextMenu());
-
-        getVisibleParagraphs().addModificationObserver(new VisibleParagraphStyler<>(this, this::computeHighlighting));
-
-
-        final java.util.regex.Pattern whiteSpace = java.util.regex.Pattern.compile( "^\\s+" );
-        addEventHandler( KeyEvent.KEY_PRESSED, KE ->
-        {
-            if ( KE.getCode() == KeyCode.ENTER ) {
-                int caretPosition =getCaretPosition();
-                int currentParagraph = getCurrentParagraph();
-                Matcher m0 = whiteSpace.matcher( getParagraph( currentParagraph-1 ).getSegments().get( 0 ) );
-                if ( m0.find() ) Platform.runLater( () -> insertText( caretPosition, m0.group() ) );
-            }
-        });
-        setText("\n");
-    }
-    public Editor(String text){
-        this();
-        setText(text);
-    }
-    public void setText(String text){
-        this.replaceText(0, 0, text);
     }
 }

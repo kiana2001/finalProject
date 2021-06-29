@@ -1,8 +1,12 @@
 package ui;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.layout.*;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
 import ui.sections.FileTree;
 import ui.sections.Panel;
@@ -20,27 +24,27 @@ public class Main extends Application {
         BorderPane EditorPane = new BorderPane();
         GridPane gp = new GridPane();
 
-        Panel panel=new Panel();
+        Panel panel = new Panel();
         EditorPane.setCenter(panel);
-        Terminal terminal=new Terminal();
+        Terminal terminal = new Terminal();
         EditorPane.setBottom(terminal);
 
-        ColumnConstraints fileTreeColumn=new ColumnConstraints();
+        ColumnConstraints fileTreeColumn = new ColumnConstraints();
         fileTreeColumn.setPercentWidth(15);
-        ColumnConstraints filePanelColumn=new ColumnConstraints();
+        ColumnConstraints filePanelColumn = new ColumnConstraints();
         filePanelColumn.setPercentWidth(85);
 
         RowConstraints rc = new RowConstraints();
         rc.setPercentHeight(100);
 
         gp.getRowConstraints().add(rc);
-        gp.getColumnConstraints().addAll(fileTreeColumn,filePanelColumn);
+        gp.getColumnConstraints().addAll(fileTreeColumn, filePanelColumn);
 
-        gp.add(EditorPane,1,0);
-        FileTree tree=new FileTree(panel);
-        gp.add(tree,0,0);
+        gp.add(EditorPane, 1, 0);
+        FileTree tree = new FileTree(panel);
+        gp.add(tree, 0, 0);
 
-        mainPane.setTop(new TopMenu(panel,tree,terminal));
+        mainPane.setTop(new TopMenu(panel, tree, terminal));
         mainPane.setCenter(gp);
 
         Scene scene = new Scene(mainPane);

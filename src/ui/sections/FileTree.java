@@ -37,8 +37,9 @@ public class FileTree extends TreeView<FileView> {
 
         private final ContextMenu addMenu = new ContextMenu();
         private final Panel p;
+
         public TextFieldTreeCellImpl(Panel p) {
-            this.p=p;
+            this.p = p;
             MenuItem addMenuItem = new MenuItem("Add Employee");
             addMenu.getItems().add(addMenuItem);
             addMenuItem.setOnAction(t -> {
@@ -65,32 +66,32 @@ public class FileTree extends TreeView<FileView> {
                 setOnMouseClicked(e -> {
                     if (e.getButton().equals(MouseButton.PRIMARY)) {
                         if (e.getClickCount() == 2) {
-                                boolean find = false;
-                                if (item.isFile()) {
-                                    for (var t : p.getTabs()) {
-                                        if (((EditorTab) t).getFile() != null) {
-                                            var path1 = ((EditorTab) t).getFile().getPath();
-                                            var path2 = item.getPath();
-                                            if (path1.equals(path2)) {
-                                                p.getSelectionModel().select(t);
-                                                find = true;
-                                                break;
-                                            }
-                                        }
-                                    }
-                                    if (!find) {
-                                        try {
-                                            EditorTab t = new EditorTab(item.getName(), p, item);
-                                            p.getTabs().add(t);
+                            boolean find = false;
+                            if (item.isFile()) {
+                                for (var t : p.getTabs()) {
+                                    if (((EditorTab) t).getFile() != null) {
+                                        var path1 = ((EditorTab) t).getFile().getPath();
+                                        var path2 = item.getPath();
+                                        if (path1.equals(path2)) {
                                             p.getSelectionModel().select(t);
-                                        } catch (IOException ex) {
-                                            ex.printStackTrace();
+                                            find = true;
+                                            break;
                                         }
-
                                     }
+                                }
+                                if (!find) {
+                                    try {
+                                        EditorTab t = new EditorTab(item.getName(), p, item);
+                                        p.getTabs().add(t);
+                                        p.getSelectionModel().select(t);
+                                    } catch (IOException ex) {
+                                        ex.printStackTrace();
+                                    }
+
                                 }
                             }
                         }
+                    }
 
                 });
             }
