@@ -12,6 +12,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Utility {
 
@@ -50,5 +52,17 @@ public class Utility {
             }
         }
         return false;
+    }
+
+    public static List<String> getMatches(List<String> strings, String pattern) {
+        List<String> matches = new ArrayList<>();
+
+        for (String s : strings) {
+            if (s.matches(pattern)) {
+                matches.add(s);
+            }
+        }
+
+        return  matches;
     }
 }

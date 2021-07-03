@@ -13,6 +13,8 @@ import ui.sections.Panel;
 import ui.sections.Terminal;
 import ui.sections.TopMenu;
 
+import java.util.HashMap;
+
 public class Main extends Application {
     public static void main(String[] args) {
         launch(args);

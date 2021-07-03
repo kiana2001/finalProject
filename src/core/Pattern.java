@@ -1,17 +1,8 @@
 package core;
 
 public class Pattern {
-    private static final String[] KEYWORDS = new String[]{
-            "abstract", "assert", "boolean", "break", "byte",
-            "case", "catch", "char", "class", "const",
-            "continue", "default", "do", "double", "else",
-            "enum", "extends", "final", "finally", "float",
-            "for", "goto", "if", "implements", "import",
-            "instanceof", "int", "interface", "long", "native",
-            "new", "package", "private", "protected", "public",
-            "return", "short", "static", "strictfp", "super",
-            "switch", "synchronized", "this", "throw", "throws",
-            "transient", "try", "void", "volatile", "while", "end", "print"
+    public static final String[] KEYWORDS = new String[]{
+            "int", "float", "for", "end", "print"
     };
     private static final String STRING_PATTERN = "\"([^\"\\\\]|\\\\.)*\"";
     private static final String COMMENT_PATTERN = "//[^\n]*" + "|" + "/\\*(.|\\R)*?\\*/"   // for whole text processing (text blocks)
@@ -25,14 +16,15 @@ public class Pattern {
             + "|(?<STRING>" + STRING_PATTERN + ")"
             + "|(?<COMMENT>" + COMMENT_PATTERN + ")";
 
-    public static String SPACE = "\\s+";
-    public static String FOR_HEAD = "\\s*(for)\\s+(\\d+)\\s*";
-    public static String FOR_END = "\\s*(end)(\\s+)(for)\\s*";
-    public static String VARIABLE_WITH_AMOUNT = "\\s*(int|float)(\\s*)(\\w+)\\s*([=])\\s*(\\d+)\\s*";
-    public static String VARIABLE_WITHOUT_AMOUNT = "\\s*(int|float)(\\s+)(\\w+)\\s*";
-    public static String DIVIDER = "\\s*[%]+\\s*";
-    public static String MATH_OPERATION = "\\s*([\\w|\\d])+\\s*([=])\\s*([\\w|\\d])+\\s*([\\-*\\/+])\\s*([\\w|\\d])\\s*";
+    public static final String SPACE = "\\s+";
+    public static final String VARIABLE_NAME="\\b([a-zA-Z$][\\w$]*|[_][\\w$]+)\\b";
+    public static final String FOR_HEAD = "\\s*(for)\\s+(\\d+)\\s*";
+    public static final String FOR_END = "\\s*(end)(\\s+)(for)\\s*";
+    public static final String VARIABLE_WITH_AMOUNT = "\\s*(int|float)(\\s*)(\\w+)\\s*([=])\\s*(\\d+(?:\\.\\d+)*)\\s*";
+    public static final String VARIABLE_WITHOUT_AMOUNT = "\\s*(int|float)(\\s+)(\\w+)\\s*";
+    public static final String DIVIDER = "\\s*[%]+\\s*";
+    public static final String MATH_OPERATION = "\\s*([\\w])+\\s*([=])\\s*([\\w|\\d])+\\s*([\\-*\\/+])\\s*([\\w|\\d])\\s*";
     // x = w + 50
-    public static String PRINT = "\\s*(print)\\s+([\\w+|\\d])+\\s*";
-    public static String ASSIGNMENT = "\\s*(\\w+)\\s*([=])\\s*([\\w|\\d]+)\\s*([\\-*\\/+]*\\s*[\\w|\\d]*)";
+    public static final String PRINT = "\\s*(print)\\s+([\\w+|\\d])+\\s*";
+    public static final String ASSIGNMENT = "\\s*(\\w+)\\s*([=])\\s*([\\w|\\d]+)\\s*";
 }
