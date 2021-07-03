@@ -1,7 +1,6 @@
 package ui;
 
 import javafx.scene.control.TabPane;
-import javafx.scene.control.TreeView;
 import javafx.stage.FileChooser;
 import org.fxmisc.flowless.VirtualizedScrollPane;
 import ui.sections.Editor;
@@ -13,6 +12,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Utility {
 
@@ -21,12 +22,12 @@ public class Utility {
         fileChooser.setTitle("Save");
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("X files (*.X)", "*.X"));
 
-        var tab=tabPane.getSelectionModel().getSelectedItem();
-        if ( ((EditorTab) tab).getFile()==null) {
+        var tab = tabPane.getSelectionModel().getSelectedItem();
+        if (((EditorTab) tab).getFile() == null) {
             File file = fileChooser.showSaveDialog(null);
-            if(file != null) {
+            if (file != null) {
                 try {
-                    FileView fv=new FileView(file.getPath());
+                    FileView fv = new FileView(file.getPath());
                     ((EditorTab) tab).setFile(fv);
                     tab.setText(file.getName());
                     BufferedWriter writer = new BufferedWriter(new FileWriter(file));
@@ -39,11 +40,10 @@ public class Utility {
                     System.out.println(ex.getMessage());
                 }
             }
-        }
-        else {
+        } else {
             try {
                 BufferedWriter writer = new BufferedWriter(new FileWriter(((EditorTab) tab).getFile()));
-                writer.write(((Editor)(((VirtualizedScrollPane) tab.getContent()).getContent())).getText());
+                writer.write(((Editor) (((VirtualizedScrollPane) tab.getContent()).getContent())).getText());
                 writer.close();
 
                 return true;
@@ -52,5 +52,17 @@ public class Utility {
             }
         }
         return false;
+    }
+
+    public static List<String> getMatches(List<String> strings, String pattern) {
+        List<String> matches = new ArrayList<>();
+
+        for (String s : strings) {
+            if (s.matches(pattern)) {
+                matches.add(s);
+            }
+        }
+
+        return  matches;
     }
 }
