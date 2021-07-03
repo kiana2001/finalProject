@@ -4,17 +4,9 @@ public class Pattern {
     public static final String[] KEYWORDS = new String[]{
             "int", "float", "for", "end", "print"
     };
-    private static final String STRING_PATTERN = "\"([^\"\\\\]|\\\\.)*\"";
-    private static final String COMMENT_PATTERN = "//[^\n]*" + "|" + "/\\*(.|\\R)*?\\*/"   // for whole text processing (text blocks)
-            + "|" + "/\\*[^\\v]*" + "|" + "^\\h*\\*([^\\v]*|/)";  // for visible paragraph processing (line by line)
-    private static final String PAREN_PATTERN = "\\(|\\)";
-    private static final String BRACE_PATTERN = "\\{|\\}";
+
     private static final String KEYWORD_PATTERN = "\\b(" + String.join("|", KEYWORDS) + ")\\b";
-    public static final String HIGHLIGHT = "(?<KEYWORD>" + KEYWORD_PATTERN + ")"
-            + "|(?<PAREN>" + PAREN_PATTERN + ")"
-            + "|(?<BRACE>" + BRACE_PATTERN + ")"
-            + "|(?<STRING>" + STRING_PATTERN + ")"
-            + "|(?<COMMENT>" + COMMENT_PATTERN + ")";
+    public static final String HIGHLIGHT = "(?<KEYWORD>" + KEYWORD_PATTERN + ")";
 
     public static final String SPACE = "\\s+";
     public static final String VARIABLE_NAME="\\b([a-zA-Z$][\\w$]*|[_][\\w$]+)\\b";

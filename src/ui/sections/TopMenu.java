@@ -53,20 +53,22 @@ public class TopMenu extends HBox {
         saveFile.setOnAction(e -> Utility.saveTab(panel, ft));
 
         run.setOnAction(e -> {
-            var result = Utility.saveTab(panel, ft);
-            if (result) {
+            var result = Utility.saveTab(panel, ft);//save editor text to file
+            if (result) {//if save was success
 
                 ((BorderPane) panel.getParent()).setBottom(terminal);
                 EditorTab tab = (EditorTab) panel.getSelectionModel().getSelectedItem();
                 String name = tab.getText().split("\\.")[0].replace(" ", "");
 
                 File oldClass = new File(tab.getFile().getParentFile().getPath() + "\\Interpreted_" + name + ".class");
-                File oldClass1 = new File(tab.getFile().getParentFile().getPath() + "\\Interpreted_" + name + ".java");
+                File oldClass1 = new File(tab.getFile().getParentFile().getPath() + "\\Interpreted_" + name + ".java");//if old compiled file exist then delete them
                 oldClass1.delete();
                 oldClass.delete();
+
                 List<Integer> errors = new ArrayList<>();
+
                 try {
-                    errors = Interpreter.x2java(((Editor) (((VirtualizedScrollPane) tab.getContent()).getContent())).getText(), tab.getFile().getParentFile().getPath(), name);
+                    errors = Interpreter.x2java(((Editor) (((VirtualizedScrollPane) tab.getContent()).getContent())).getText(), tab.getFile().getParentFile().getPath(), name);//build java file from x code
                 } catch (IOException ioException) {
                     ioException.printStackTrace();
                 }
@@ -74,9 +76,9 @@ public class TopMenu extends HBox {
                 if (errors.isEmpty()) {
                     try {
 
-                        String command = "javac Interpreted_" + name + ".java";
+                        String command = "javac Interpreted_" + name + ".java";// run java compiler
                         terminal.runCommand(command, tab.getFile().getParentFile().getPath());
-                        command = "java Interpreted_" + name;
+                        command = "java Interpreted_" + name;//run java main class
                         terminal.runCommand(command, tab.getFile().getParentFile().getPath());
 
                     } catch (IOException ioException) {
@@ -84,7 +86,7 @@ public class TopMenu extends HBox {
                     }
                 } else {
                     for (var error : errors) {
-                        terminal.addText("Error at line:" + error + "\n");
+                        terminal.addText("Error at line:" + error + "\n");//show errors in our terminal
                     }
                 }
             }

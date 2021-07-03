@@ -7,7 +7,7 @@ import java.util.Random;
 
 public class Interpreter {
 
-    public static Parts getType(String string) {
+    public static Parts getType(String string) { //get expression type
         if (string.matches(Pattern.FOR_HEAD)) return Parts.FOR_HEAD;
         if (string.matches(Pattern.FOR_END)) return Parts.END_FOR;
         if (string.matches(Pattern.VARIABLE_WITH_AMOUNT)) return Parts.DEFINE_VARIABLE_WITH_AMOUNT;
@@ -21,7 +21,7 @@ public class Interpreter {
         return null;
     }
 
-    private static String randString() {
+    private static String randString() {//build a random string
         int leftLimit = 97; // letter 'a'
         int rightLimit = 122; // letter 'zh'
         int targetStringLength = 10;
@@ -33,7 +33,7 @@ public class Interpreter {
                 .toString();
     }
 
-    private static String Changer(String string) {
+    private static String Changer(String string) {// translate expressions to java
 
         Parts type = Interpreter.getType(string);
 
