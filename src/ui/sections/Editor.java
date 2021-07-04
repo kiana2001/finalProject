@@ -124,6 +124,7 @@ public class Editor extends CodeArea {
                 .subscribe(this::contextMenu);
 
         getVisibleParagraphs().addModificationObserver(new VisibleParagraphStyler<>(this, this::computeHighlighting));
+
        this.caretPositionProperty().addListener(e->{
            try {
                suggest.hide();
