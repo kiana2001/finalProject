@@ -44,7 +44,7 @@ public class Interpreter {
             return string.replaceAll(Pattern.VARIABLE_WITHOUT_AMOUNT, "$1$2$3=($1)0;");
 
         } else if (Parts.MATH_OPERATION.equals(type)) {//w=w+y
-            return string.replaceAll(Pattern.MATH_OPERATION, "$1$2$3$4$5;");
+            return string+";";
 
         } else if (Parts.PRINT.equals(type)) {
             return string.replaceAll(Pattern.PRINT, "System.out." + "$1" + "ln($2);");

@@ -15,7 +15,7 @@ public class Pattern {
     public static final String VARIABLE_WITH_AMOUNT = "\\s*(int|float)(\\s*)(\\w+)\\s*([=])\\s*(\\d+(?:\\.\\d+)*)\\s*";
     public static final String VARIABLE_WITHOUT_AMOUNT = "\\s*(int|float)(\\s+)(\\b([a-zA-Z$][\\w$]*|[_][\\w$]+)\\b)\\s*";
     public static final String DIVIDER = "\\s*[%]+\\s*";
-    public static final String MATH_OPERATION = "\\s*(\\b([a-zA-Z$][\\w$]*|[_][\\w$]+)\\b)\\s*([=])\\s*((?:\\b([a-zA-Z$][\\w$]*|[_][\\w$]+)\\b)|\\d+(?:\\.\\d+)*)\\s*([\\-*\\/+])\\s*((?:\\b([a-zA-Z$][\\w$]*|[_][\\w$]+)\\b)|\\d+(?:\\.\\d+)*)\\s*";
+    public static final String MATH_OPERATION = "^(?: *[a-zA-Z$]+|[_]\\w+)\\s*=(?:\\s*(?:[a-zA-Z$\\d]+|[_]\\w+)\\s*[\\-*\\/+])*\\s*(?:[a-zA-Z$\\d]+|[_]\\w+)$";
     // x = w + 50
     public static final String PRINT = "\\s*(print)\\s+((?:\\b([a-zA-Z$][\\w$]*|[_][\\w$]+)\\b)|\\d+(?:\\.\\d+)*)\\s*";
     public static final String ASSIGNMENT = "\\s*(\\b([a-zA-Z$][\\w$]*|[_][\\w$]+)\\b)\\s*([=])\\s*((?:\\b([a-zA-Z$][\\w$]*|[_][\\w$]+)\\b)|\\d+(?:\\.\\d+)*)\\s*";
